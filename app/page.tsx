@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import Image from "next/image";
 import ServiceCard from "@/components/ServiceCard";
 import CTASection from "@/components/CTASection";
 import FAQ from "@/components/FAQ";
@@ -72,13 +71,15 @@ export default function HomePage() {
           <div className="mt-10">
             <h3 className="mb-4 text-xl font-semibold text-slate-900">Our system</h3>
             <div className="overflow-hidden rounded-xl border border-slate-200 shadow-md">
-              <Image
+              {/* Native img avoids Sharp optimizing a multi‑MB JPEG during static prerender */}
+              <img
                 src="/newstuff/newstuff9.jpg"
                 alt="Our professional water fed pole system and deionized water setup"
                 width={1200}
                 height={800}
                 className="h-auto w-full object-cover"
-                sizes="(max-width: 768px) 100vw, 1024px"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>

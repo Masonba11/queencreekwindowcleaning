@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPostBySlug, getAllSlugs, BLOG_POSTS } from "@/lib/blog";
+import { getPostBySlug, BLOG_POSTS } from "@/lib/blog";
 import { buildMetadata } from "@/lib/seo";
 import CTASection from "@/components/CTASection";
 
@@ -15,9 +15,9 @@ function renderBody(body: string) {
 
 type Props = { params: Promise<{ slug: string }> };
 
-export async function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
-}
+/** Do not pre-render every blog URL at build time — lowers peak memory on Vercel. Pages use ISR after first request. */
+export const dynamicParams = true;
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import OurWorkGallery from "@/components/OurWorkGallery";
+import OurWorkGalleryShell from "@/components/OurWorkGalleryShell";
 import StickyCTA from "@/components/StickyCTA";
 import { SITE } from "@/lib/constants";
 import { localBusinessSchema } from "@/lib/seo";
@@ -46,7 +46,7 @@ export default function RootLayout({
         />
         <Header />
         <main className="flex-1">{children}</main>
-        <OurWorkGallery />
+        <OurWorkGalleryShell />
         <Footer />
         <StickyCTA />
         <div className="h-20 md:h-24" aria-hidden />
