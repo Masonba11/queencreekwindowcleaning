@@ -16,8 +16,11 @@ export async function POST(request: Request) {
     if (!accessKey) {
       console.error("[contact] WEB3FORMS_ACCESS_KEY is not set");
       return NextResponse.json(
-        { error: "Form service not configured" },
-        { status: 500 }
+        {
+          error:
+            "Server form disabled. Set NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY for browser submit (see README).",
+        },
+        { status: 503 }
       );
     }
 

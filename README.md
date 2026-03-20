@@ -20,9 +20,11 @@ Open [http://localhost:3000](http://localhost:3000). Production build: `npm run 
 
 ### Contact form (Web3Forms)
 
-1. Copy `.env.example` to `.env.local` and set `WEB3FORMS_ACCESS_KEY` to your Web3Forms access key.
-2. On **Vercel**: Project → Settings → Environment Variables → add `WEB3FORMS_ACCESS_KEY` (Production + Preview).
-3. Redeploy after adding the variable.
+Web3Forms’ **free** plan only accepts submissions from the **browser**, not from a server (Vercel) unless you’re on a **paid** plan with IP allowlisting.
+
+1. Copy `.env.example` to `.env.local` and set **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** to your Web3Forms access key (same UUID as in the Web3Forms dashboard).
+2. On **Vercel**: Settings → Environment Variables → add **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** (Production + Preview). Redeploy.
+3. Optional: **`WEB3FORMS_ACCESS_KEY`** (without `NEXT_PUBLIC_`) is only for `/api/contact` if you use paid Web3Forms + allowlisted server IPs.
 
 Submissions include name, email, phone, address, service, and message.
 

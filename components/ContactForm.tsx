@@ -44,8 +44,53 @@ export default function ContactForm({
     setErrors({});
     setStatus("submitting");
 
+    const name = data.get("name")?.toString().trim() ?? "";
+    const email = data.get("email")?.toString().trim() ?? "";
+    const phone = data.get("phone")?.toString().trim() ?? "";
+    const address = data.get("address")?.toString().trim() ?? "";
+    const service = data.get("service")?.toString().trim() ?? "";
+    const message = data.get("message")?.toString().trim() ?? "";
+
     try {
-      // Replace with your API route, Formspree, or webhook
+      /**
+       * Web3Forms free tier blocks server-side API calls (paid + IP allowlist only).
+       * Submit from the browser with NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY.
+       */
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+      if (accessKey) {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `Quote request — ${service}`,
+            name,
+            email,
+            phone,
+            address,
+            service,
+            message,
+          }),
+        });
+        const json = (await res.json()) as {
+          success?: boolean;
+          message?: string;
+          body?: { message?: string };
+        };
+        const ok = json.success === true;
+        if (ok) {
+          setStatus("success");
+          router.push("/thank-you");
+          return;
+        }
+        console.error("[Web3Forms]", json);
+        setStatus("error");
+        return;
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
