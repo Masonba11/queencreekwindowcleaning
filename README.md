@@ -16,7 +16,15 @@ Open [http://localhost:3000](http://localhost:3000). Production build: `npm run 
 - **`app/`** – Pages (App Router): home, indoor/outdoor services, blog, reviews, contact, FAQ, privacy, terms, thank-you
 - **`components/`** – Reusable UI: Header (with Services dropdown), Footer, Hero, ContactForm, StickyCTA, FAQ, ReviewCard, ServiceAreas, CTASection, ServiceCard
 - **`lib/`** – `constants.ts` (site config, nav, service areas), `seo.ts` (metadata + schema helpers), `faq.ts`, `reviews.ts`, `blog.ts`
-- **`app/api/contact/`** – POST handler for lead form (extend to send to email/CRM/webhook)
+- **`app/api/contact/`** – POST handler for the quote form; forwards to **[Web3Forms](https://web3forms.com)** using `WEB3FORMS_ACCESS_KEY`
+
+### Contact form (Web3Forms)
+
+1. Copy `.env.example` to `.env.local` and set `WEB3FORMS_ACCESS_KEY` to your Web3Forms access key.
+2. On **Vercel**: Project → Settings → Environment Variables → add `WEB3FORMS_ACCESS_KEY` (Production + Preview).
+3. Redeploy after adding the variable.
+
+Submissions include name, email, phone, address, service, and message.
 
 ## Recommended Page Titles & Meta Descriptions
 
