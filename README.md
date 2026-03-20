@@ -22,9 +22,9 @@ Open [http://localhost:3000](http://localhost:3000). Production build: `npm run 
 
 Web3Forms’ **free** plan only accepts submissions from the **browser**, not from a server (Vercel) unless you’re on a **paid** plan with IP allowlisting.
 
-1. Copy `.env.example` to `.env.local` and set **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** to your Web3Forms access key (same UUID as in the Web3Forms dashboard).
-2. On **Vercel**: Settings → Environment Variables → add **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** (Production + Preview). Redeploy.
-3. Optional: **`WEB3FORMS_ACCESS_KEY`** (without `NEXT_PUBLIC_`) is only for `/api/contact` if you use paid Web3Forms + allowlisted server IPs.
+1. Copy `.env.example` to `.env.local` and set either **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** or **`WEB3FORMS_ACCESS_KEY`** to your Web3Forms access key (same UUID as in the dashboard).
+2. On **Vercel**: add **`WEB3FORMS_ACCESS_KEY`** or **`NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`** (either works — `next.config.ts` maps the former into the client at build time). Redeploy after changes.
+3. Optional: **`WEB3FORMS_ACCESS_KEY`** also powers `/api/contact` if you use paid Web3Forms + allowlisted server IPs.
 
 Submissions include name, email, phone, address, service, and message.
 
