@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { SITE } from "@/lib/constants";
 
 const SERVICE_OPTIONS = [
   "Indoor Window Cleaning",
@@ -21,6 +22,7 @@ export default function ContactForm({
 }) {
   const router = useRouter();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function validate(data: FormData): Record<string, string> {
@@ -42,6 +44,7 @@ export default function ContactForm({
       return;
     }
     setErrors({});
+    setSubmitError(null);
     setStatus("submitting");
 
     const name = data.get("name")?.toString().trim() ?? "";
@@ -53,57 +56,55 @@ export default function ContactForm({
 
     try {
       /**
-       * Web3Forms free tier blocks server-side API calls (paid + IP allowlist only).
-       * Submit from the browser with NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY.
+       * Web3Forms free tier only accepts browser POSTs. The key must be
+       * NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY (set in Vercel + redeploy — not WEB3FORMS_ACCESS_KEY alone).
        */
-      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-      if (accessKey) {
-        const res = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: accessKey,
-            subject: `Quote request — ${service}`,
-            name,
-            email,
-            phone,
-            address,
-            service,
-            message,
-          }),
-        });
-        const json = (await res.json()) as {
-          success?: boolean;
-          message?: string;
-          body?: { message?: string };
-        };
-        const ok = json.success === true;
-        if (ok) {
-          setStatus("success");
-          router.push("/thank-you");
-          return;
-        }
-        console.error("[Web3Forms]", json);
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY?.trim();
+      if (!accessKey) {
+        console.error(
+          "[ContactForm] Missing NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY. Add it in Vercel → Environment Variables and redeploy."
+        );
         setStatus("error");
+        setSubmitError(
+          `Online quotes aren’t connected yet. Please call ${SITE.phone} or email ${SITE.email}. (Deploy needs NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY in Vercel.)`
+        );
         return;
       }
 
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(data)),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Quote request — ${service}`,
+          name,
+          email,
+          phone,
+          address,
+          service,
+          message,
+        }),
       });
-      if (res.ok) {
+      const json = (await res.json()) as {
+        success?: boolean;
+        message?: string;
+        body?: { message?: string };
+      };
+      if (json.success === true) {
         setStatus("success");
         router.push("/thank-you");
-      } else {
-        setStatus("error");
+        return;
       }
+      const apiMsg = json.body?.message ?? json.message ?? "Submission rejected";
+      console.error("[Web3Forms]", json);
+      setStatus("error");
+      setSubmitError(`${apiMsg} If this keeps happening, call ${SITE.phone}.`);
     } catch {
       setStatus("error");
+      setSubmitError(`Something went wrong. Please call ${SITE.phone} or try again.`);
     }
   }
 
@@ -224,7 +225,9 @@ export default function ContactForm({
         </div>
       </div>
       {status === "error" && (
-        <p className="text-sm text-accent">Something went wrong. Please try again or call us.</p>
+        <p className="text-sm text-accent">
+          {submitError ?? `Something went wrong. Please try again or call ${SITE.phone}.`}
+        </p>
       )}
       <button
         type="submit"

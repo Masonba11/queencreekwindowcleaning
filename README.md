@@ -16,7 +16,7 @@ Open [http://localhost:3000](http://localhost:3000). Production build: `npm run 
 - **`app/`** – Pages (App Router): home, indoor/outdoor services, blog, reviews, contact, FAQ, privacy, terms, thank-you
 - **`components/`** – Reusable UI: Header (with Services dropdown), Footer, Hero, ContactForm, StickyCTA, FAQ, ReviewCard, ServiceAreas, CTASection, ServiceCard
 - **`lib/`** – `constants.ts` (site config, nav, service areas), `seo.ts` (metadata + schema helpers), `faq.ts`, `reviews.ts`, `blog.ts`
-- **`app/api/contact/`** – POST handler for the quote form; forwards to **[Web3Forms](https://web3forms.com)** using `WEB3FORMS_ACCESS_KEY`
+- **`app/api/contact/`** – Optional POST handler for paid Web3Forms server-side use; the **quote form submits from the browser** to Web3Forms using `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`
 
 ### Contact form (Web3Forms)
 
@@ -95,7 +95,7 @@ Anchor text uses natural, keyword-relevant phrases (e.g. “outdoor window clean
 
 ## Contact Form Integration
 
-The form posts to `POST /api/contact`. The handler in `app/api/contact/route.ts` validates and returns 200. To send leads to email, a CRM, or a webhook, add that logic inside the route (e.g. Resend, SendGrid, Zapier, or your CRM’s API).
+The **ContactForm** posts directly to **`https://api.web3forms.com/submit`** from the browser (required for Web3Forms’ free tier). **`POST /api/contact`** is only used if you later wire paid server-side Web3Forms or another backend.
 
 ## Configuration
 
