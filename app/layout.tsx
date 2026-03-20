@@ -42,6 +42,20 @@ export default function RootLayout({
   const schema = localBusinessSchema();
   return (
     <html lang="en" className="h-full antialiased">
+      <head>
+        {/* Google tag (gtag.js) — single instance for entire site via root layout */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18028733189" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18028733189');
+            `,
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-white text-slate-800">
         <script
           type="application/ld+json"
