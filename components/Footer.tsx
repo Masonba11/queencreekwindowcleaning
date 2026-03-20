@@ -1,7 +1,6 @@
 import Link from "next/link";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import { SITE, NAV_LINKS } from "@/lib/constants";
-
-const telHref = `tel:${SITE.phoneRaw}`;
 
 export default function Footer() {
   const flatLinks: { href: string; label: string }[] = [];
@@ -21,12 +20,9 @@ export default function Footer() {
             <h3 className="mb-3 text-lg font-bold text-white">{SITE.name}</h3>
             <p className="text-sm">{SITE.tagline}</p>
             <p className="mt-2 text-sm">{SITE.serviceArea}</p>
-            <a
-              href={telHref}
-              className="mt-2 inline-block font-semibold text-secondary-light hover:text-white"
-            >
+            <CallPhoneLink className="mt-2 inline-block font-semibold text-secondary-light hover:text-white">
               {SITE.phone}
-            </a>
+            </CallPhoneLink>
           </div>
           <div>
             <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white/60">

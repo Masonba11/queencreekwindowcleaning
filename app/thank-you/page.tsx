@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import { SITE } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
 
@@ -20,10 +21,7 @@ export default function ThankYouPage() {
       </p>
       <p className="mt-2 text-slate-600">
         Need to reach us right away? Call us at{" "}
-        <a href={`tel:${SITE.phoneRaw}`} className="font-semibold text-accent hover:underline">
-          {SITE.phone}
-        </a>
-        .
+        <CallPhoneLink className="font-semibold text-accent hover:underline">{SITE.phone}</CallPhoneLink>.
       </p>
       <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
         <Link

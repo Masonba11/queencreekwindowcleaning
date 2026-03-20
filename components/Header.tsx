@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SITE, NAV_LINKS } from "@/lib/constants";
-
-const telHref = `tel:${SITE.phoneRaw}`;
 
 export default function Header() {
   const pathname = usePathname();
@@ -73,13 +72,9 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a
-            href={telHref}
-            className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover"
-            aria-label={`Call ${SITE.phone}`}
-          >
+          <CallPhoneLink className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover">
             {SITE.phone}
-          </a>
+          </CallPhoneLink>
           <Link
             href="/contact#quote"
             className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"

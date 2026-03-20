@@ -55,6 +55,27 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Ads — click-to-call conversion; use gtag_report_conversion on phone links */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.gtag_report_conversion = function(url) {
+                var callback = function () {
+                  if (typeof url !== 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                  send_to: 'AW-18028733189/uvazCL2QnYwcEIXG4pRD',
+                  value: 1.0,
+                  currency: 'USD',
+                  event_callback: callback
+                });
+                return false;
+              };
+            `,
+          }}
+        />
       </head>
       <body className="flex min-h-full flex-col bg-white text-slate-800">
         <script

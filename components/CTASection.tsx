@@ -1,7 +1,6 @@
 import Link from "next/link";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import { SITE } from "@/lib/constants";
-
-const telHref = `tel:${SITE.phoneRaw}`;
 
 export default function CTASection({
   headline = "Ready for Streak-Free Windows in Queen Creek?",
@@ -29,13 +28,9 @@ export default function CTASection({
               Get Free Quote Now
             </Link>
           )}
-          <a
-            href={telHref}
-            className="inline-flex rounded-lg bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
-            aria-label={`Call ${SITE.phone}`}
-          >
+          <CallPhoneLink className="inline-flex rounded-lg bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary">
             Call Now — {SITE.phone}
-          </a>
+          </CallPhoneLink>
         </div>
       </div>
     </section>

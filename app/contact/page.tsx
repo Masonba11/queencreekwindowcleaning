@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE } from "@/lib/constants";
 import { buildMetadata } from "@/lib/seo";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import ContactForm from "@/components/ContactForm";
 import FAQ from "@/components/FAQ";
 import ServiceAreas from "@/components/ServiceAreas";
@@ -12,8 +13,6 @@ export const metadata: Metadata = buildMetadata({
     "Get a free quote for window cleaning in Queen Creek, AZ. Contact us by form or phone. Serving Queen Creek and the East Valley.",
   path: "/contact",
 });
-
-const telHref = `tel:${SITE.phoneRaw}`;
 
 export default function ContactPage() {
   return (
@@ -42,13 +41,9 @@ export default function ContactPage() {
           <div>
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-6">
               <h3 className="text-lg font-semibold text-slate-900">Call or Email</h3>
-              <a
-                href={telHref}
-                className="mt-2 block text-xl font-bold text-accent hover:underline"
-                aria-label={`Call ${SITE.phone}`}
-              >
+              <CallPhoneLink className="mt-2 block text-xl font-bold text-accent hover:underline">
                 {SITE.phone}
-              </a>
+              </CallPhoneLink>
               <a
                 href={`mailto:${SITE.email}`}
                 className="mt-2 block text-secondary-light hover:text-secondary-light/90 hover:underline"

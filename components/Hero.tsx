@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
+import CallPhoneLink from "@/components/CallPhoneLink";
 import HeroStats from "./HeroStats";
-
-const telHref = `tel:${SITE.phoneRaw}`;
 
 type HeroProps = {
   headline: string;
@@ -44,13 +43,9 @@ export default function Hero({ headline, subheadline, quoteLink = "/contact#quot
             >
               Get Free Quote Now
             </Link>
-            <a
-              href={telHref}
-              className="inline-flex justify-center rounded-lg bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
-              aria-label={`Call ${SITE.phone}`}
-            >
+            <CallPhoneLink className="inline-flex justify-center rounded-lg bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary">
               Call Now
-            </a>
+            </CallPhoneLink>
           </div>
           <p className="mt-1 text-sm text-slate-300">
             Serving Queen Creek, AZ and the East Valley • {SITE.phone}

@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SITE } from "@/lib/constants";
-
-const telHref = `tel:${SITE.phoneRaw}`;
+import CallPhoneLink from "@/components/CallPhoneLink";
 
 const PAGES_WITH_QUOTE_FORM = ["/", "/indoor-window-cleaning", "/outdoor-window-cleaning", "/contact"];
 
@@ -23,13 +21,9 @@ export default function StickyCTA() {
       >
         Get Free Quote
       </Link>
-      <a
-        href={telHref}
-        className="flex-1 max-w-[200px] md:max-w-[220px] rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-white shadow-md transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary"
-        aria-label={`Call now: ${SITE.phone}`}
-      >
+      <CallPhoneLink className="flex-1 max-w-[200px] md:max-w-[220px] rounded-lg bg-accent px-4 py-3 text-center text-sm font-semibold text-white shadow-md transition hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary">
         Call Now
-      </a>
+      </CallPhoneLink>
     </div>
   );
 }
