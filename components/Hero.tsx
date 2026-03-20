@@ -29,6 +29,9 @@ export default function Hero({ headline, subheadline, quoteLink = "/contact#quot
       <div className="absolute inset-0 bg-gradient-to-br from-primary-dark/85 via-primary/75 to-primary-dark/85" />
       <div className="relative z-10 mx-auto flex min-h-[32rem] max-w-6xl flex-col justify-center px-4 py-12 sm:px-6 md:py-16 lg:py-20">
         <div className="relative">
+          <p className="mb-3 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white/95 backdrop-blur-sm sm:text-sm">
+            Partner of Arizona Window Washing Pros
+          </p>
           <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl">
             {headline}
           </h1>
